@@ -6,9 +6,10 @@ import { Text, View } from "react-native";
 
 import styled from "styled-components/native";
 import QuizScreen from "./screens/QuizScreen";
+import OXQuiz from "./screens/OXQuiz";
 
 const App = () => {
-  return <QuizScreen />;
+  return <OXQuiz />;
 };
 
 const Container = styled.View`

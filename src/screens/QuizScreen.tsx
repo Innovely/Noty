@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 
 const QuizScreen = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -22,7 +22,10 @@ const QuizScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.quizMain}>{"오늘의 퀴즈" + "\n"}</Text>
+      <View style={styles.headContainer}>
+        <Text style={styles.quizMain}>{"오늘의 퀴즈" + "\n"}</Text>
+        <Image source={require("./img/2.png")} style={styles.quizImage} />
+      </View>
       <View style={styles.boxContainer}>
         <Text style={styles.quizField}>{"분야(법,정책 등)"}</Text>
         <Text style={styles.quizText}>
@@ -88,26 +91,33 @@ const styles = StyleSheet.create({
   boxContainer: {
     backgroundColor: "#FFFFFF",
     width: 375,
-    height: 430,
+    height: 460,
     borderRadius: 30,
     borderColor: "#00A184",
     borderWidth: 2,
     padding: 20,
   },
+  headContainer: {
+    flexDirection: "row", // 이 부분을 추가하여 수평 방향으로 정렬
+  },
   quizMain: {
     fontSize: 20,
     marginTop: 20,
+    marginLeft: 10,
     color: "#00A184",
     fontWeight: "bold",
   },
   quizField: {
     fontSize: 12,
     marginBottom: 10,
+    marginTop: 10,
     color: "#00A184",
   },
   quizText: {
     fontSize: 20,
+    marginTop: 20,
     marginBottom: 10,
+    textAlign: "center",
     fontWeight: "bold",
     color: "#000000",
   },
@@ -116,6 +126,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 12,
     marginBottom: 10,
+    marginLeft: 10,
+    marginRight: 10,
   },
   buttonvote: {
     marginTop: 10,
@@ -124,7 +136,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 12,
     marginBottom: 10,
-    width: 100,
+    width: 90,
     height: 40,
   },
 
@@ -138,6 +150,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#6e6e6e",
     textAlign: "center",
+  },
+  quizImage2: {
+    resizeMode: "cover",
+    marginTop: 25,
+    marginLeft: 225,
   },
 });
 
