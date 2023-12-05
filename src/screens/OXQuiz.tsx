@@ -59,13 +59,14 @@ const styles = StyleSheet.create({
   quizField: {
     fontSize: 12,
     marginTop: 10,
+    marginLeft: 10,
     marginBottom: 10,
     color: "#00A184",
   },
   quizText: {
     fontSize: 20,
     marginBottom: 10,
-    marginTop: 20,
+    marginTop: 10,
     textAlign: "center",
     fontWeight: "bold",
     color: "#000000",
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
     marginLeft: 125,
   },
   buttonContainer: {
-    flexDirection: "row", // 이 부분을 추가하여 수평 방향으로 정렬
+    flexDirection: "row",
     marginTop: 50,
   },
   quizImage2: {
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
     marginLeft: 225,
   },
   headContainer: {
-    flexDirection: "row", // 이 부분을 추가하여 수평 방향으로 정렬
+    flexDirection: "row",
   },
 });
 
