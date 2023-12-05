@@ -23,7 +23,7 @@ const NavigationDrawer = () => {
       initialRouteName="Home"
     >
       {/* 메인 페이지들은 BottomTabNavigator 컴포넌트를 통해 각 페이지간 이동 가능 */}
-      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="Home" component={Poll} />
     </Drawer.Navigator>
   );
 };

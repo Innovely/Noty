@@ -5,9 +5,9 @@ const QuizScreen = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [voted, setVoted] = useState(false);
   const [votes, setVotes] = useState({
-    찬성: 0,
-    반대: 0,
-    상관없음: 0,
+    찬성: 126,
+    반대: 77,
+    상관없음: 32,
   });
 
   const handleOptionPress = (option) => {
@@ -31,7 +31,6 @@ const QuizScreen = () => {
     return selectedOption === option;
   };
 
-  // Calculate voting ratio (optional, you may customize it based on your needs)
   const calculateVotingRatio = (option) => {
     const totalVotes = votes.찬성 + votes.반대 + votes.상관없음;
     return totalVotes === 0
@@ -64,9 +63,11 @@ const QuizScreen = () => {
             <View style={styles.headContainer}>
               <Text style={styles.buttonText}>{option}</Text>
               {voted && (
-                <Text style={styles.votingRatioText}>
-                  {calculateVotingRatio(option)}%
-                </Text>
+                <View style={styles.votingRatioContainer}>
+                  <Text style={styles.votingRatioText}>
+                    {calculateVotingRatio(option)}%
+                  </Text>
+                </View>
               )}
             </View>
           </TouchableOpacity>
@@ -83,6 +84,7 @@ const QuizScreen = () => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -171,10 +173,11 @@ const styles = StyleSheet.create({
     color: "#6e6e6e",
     textAlign: "center",
   },
-  votingRatioText: {
-    fontSize: 14,
-    color: "#6e6e6e",
-    textAlign: "center",
+  votingRatioContainer: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    padding: 10,
   },
 });
 
