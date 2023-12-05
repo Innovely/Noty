@@ -8,9 +8,9 @@ import changeNavigationBarColor from "react-native-navigation-bar-color";
 
 import { NavigationContainer } from "@react-navigation/native";
 
-// import { useSelector } from "react-redux";
-
-// import { RootState } from "@redux/reducers";
+import QuizScreen from "./screens/QuizScreen";
+import OXQuiz from "./screens/OXQuiz";
+import Poll from "./screens/Poll";
 
 import NavigationDrawer from "@navigators/NavigationDrawer";
 
