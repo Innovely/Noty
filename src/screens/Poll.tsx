@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
 const QuizScreen = () => {
   const [selectedOption, setSelectedOption] = useState(null);
+  const [voted, setVoted] = useState(false);
 
   const handleOptionPress = (option) => {
     setSelectedOption(option);
@@ -11,6 +12,7 @@ const QuizScreen = () => {
   const handleSubmitVote = () => {
     if (selectedOption) {
       console.log("선택한 답안:", selectedOption);
+      setVoted(true);
     } else {
       console.log("투표를 제출하려면 답안을 선택하세요.");
     }
@@ -32,21 +34,41 @@ const QuizScreen = () => {
           <Text style={styles.viewMore}>{"자세히 보기"}</Text>
         </View>
         <Text style={styles.pollSum}>{"간단한 설명"}</Text>
-        <TouchableOpacity
-          style={[
-            styles.button,
-            isOptionSelected("찬성") && { backgroundColor: "#CCCCCC" },
-          ]}
-          onPress={() => handleOptionPress("찬성")}
-        >
-          <Text style={styles.buttonText}>{"찬성"}</Text>
-        </TouchableOpacity>
+        {voted ? (
+          <TouchableOpacity
+            style={[
+              styles.button,
+              isOptionSelected("찬성") && { backgroundColor: "#CCCCCC" },
+              voted && { borderColor: "#999999" },
+            ]}
+            onPress={() => handleOptionPress("찬성")}
+            disabled={voted}
+          >
+            <Text style={styles.buttonText}>{"찬성"}</Text>
+          </TouchableOpacity>
+        ) : (
+          <>
+            <TouchableOpacity
+              style={[
+                styles.button,
+                isOptionSelected("찬성") && { backgroundColor: "#cccccc" },
+              ]}
+              onPress={() => handleOptionPress("찬성")}
+              disabled={voted}
+            >
+              <Text style={styles.buttonText}>{"찬성"}</Text>
+            </TouchableOpacity>
+          </>
+        )}
+
         <TouchableOpacity
           style={[
             styles.button,
             isOptionSelected("반대") && { backgroundColor: "#CCCCCC" },
+            voted && { borderColor: "#999999" },
           ]}
           onPress={() => handleOptionPress("반대")}
+          disabled={voted}
         >
           <Text style={styles.buttonText}>{"반대"}</Text>
         </TouchableOpacity>
@@ -54,15 +76,17 @@ const QuizScreen = () => {
           style={[
             styles.button,
             isOptionSelected("상관없음") && { backgroundColor: "#CCCCCC" },
+            voted && { borderColor: "#999999" },
           ]}
           onPress={() => handleOptionPress("상관없음")}
+          disabled={voted}
         >
           <Text style={styles.buttonText}>{"상관없음"}</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.buttonvote}
+          style={[styles.buttonvote, voted && { backgroundColor: "#d1d1d1" }]}
           onPress={handleSubmitVote}
-          disabled={selectedOption === null}
+          disabled={selectedOption === null || voted}
         >
           <Text style={styles.buttonvoteText}>{"투표하기"}</Text>
         </TouchableOpacity>
@@ -70,7 +94,6 @@ const QuizScreen = () => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -157,6 +180,26 @@ const styles = StyleSheet.create({
   buttonvoteText: {
     fontSize: 14,
     color: "#6e6e6e",
+    textAlign: "center",
+  },
+  bottonYvoted: {
+    fontSize: 16,
+    backgroundColor: "#CFEDE7",
+    textAlign: "center",
+  },
+  bottonNvoted: {
+    fontSize: 16,
+    color: "#333",
+    textAlign: "center",
+  },
+  bottonDvoted: {
+    fontSize: 16,
+    color: "#333",
+    textAlign: "center",
+  },
+  bottonEvoted: {
+    fontSize: 16,
+    color: "#333",
     textAlign: "center",
   },
 });
