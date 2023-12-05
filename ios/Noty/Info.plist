@@ -51,5 +51,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Fonts/SpoqaHanSansNeo-Thin.otf</string>
+		<string>Fonts/SpoqaHanSansNeo-Light.otf</string>
+		<string>Fonts/SpoqaHanSansNeo-Regular.otf</string>
+		<string>Fonts/SpoqaHanSansNeo-Medium.otf</string>
+		<string>Fonts/SpoqaHanSansNeo-Bold.otf</string>
+	</array>
 </dict>
 </plist>
