@@ -4,6 +4,11 @@ import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 const QuizScreen = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [voted, setVoted] = useState(false);
+  const [votes, setVotes] = useState({
+    찬성: 0,
+    반대: 0,
+    상관없음: 0,
+  });
 
   const handleOptionPress = (option) => {
     setSelectedOption(option);
@@ -12,6 +17,10 @@ const QuizScreen = () => {
   const handleSubmitVote = () => {
     if (selectedOption) {
       console.log("선택한 답안:", selectedOption);
+      setVotes((prevVotes) => ({
+        ...prevVotes,
+        [selectedOption]: prevVotes[selectedOption] + 1,
+      }));
       setVoted(true);
     } else {
       console.log("투표를 제출하려면 답안을 선택하세요.");
@@ -20,6 +29,14 @@ const QuizScreen = () => {
 
   const isOptionSelected = (option) => {
     return selectedOption === option;
+  };
+
+  // Calculate voting ratio (optional, you may customize it based on your needs)
+  const calculateVotingRatio = (option) => {
+    const totalVotes = votes.찬성 + votes.반대 + votes.상관없음;
+    return totalVotes === 0
+      ? 0
+      : ((votes[option] / totalVotes) * 100).toFixed(2);
   };
 
   return (
@@ -34,55 +51,27 @@ const QuizScreen = () => {
           <Text style={styles.viewMore}>{"자세히 보기"}</Text>
         </View>
         <Text style={styles.pollSum}>{"간단한 설명"}</Text>
-        {voted ? (
+        {Object.keys(votes).map((option) => (
           <TouchableOpacity
+            key={option}
             style={[
               styles.button,
-              isOptionSelected("찬성") && { backgroundColor: "#CCCCCC" },
-              voted && { borderColor: "#999999" },
+              isOptionSelected(option) && { backgroundColor: "#cccccc" },
             ]}
-            onPress={() => handleOptionPress("찬성")}
+            onPress={() => handleOptionPress(option)}
             disabled={voted}
           >
-            <Text style={styles.buttonText}>{"찬성"}</Text>
+            <View style={styles.headContainer}>
+              <Text style={styles.buttonText}>{option}</Text>
+              {voted && (
+                <Text style={styles.votingRatioText}>
+                  {calculateVotingRatio(option)}%
+                </Text>
+              )}
+            </View>
           </TouchableOpacity>
-        ) : (
-          <>
-            <TouchableOpacity
-              style={[
-                styles.button,
-                isOptionSelected("찬성") && { backgroundColor: "#cccccc" },
-              ]}
-              onPress={() => handleOptionPress("찬성")}
-              disabled={voted}
-            >
-              <Text style={styles.buttonText}>{"찬성"}</Text>
-            </TouchableOpacity>
-          </>
-        )}
+        ))}
 
-        <TouchableOpacity
-          style={[
-            styles.button,
-            isOptionSelected("반대") && { backgroundColor: "#CCCCCC" },
-            voted && { borderColor: "#999999" },
-          ]}
-          onPress={() => handleOptionPress("반대")}
-          disabled={voted}
-        >
-          <Text style={styles.buttonText}>{"반대"}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.button,
-            isOptionSelected("상관없음") && { backgroundColor: "#CCCCCC" },
-            voted && { borderColor: "#999999" },
-          ]}
-          onPress={() => handleOptionPress("상관없음")}
-          disabled={voted}
-        >
-          <Text style={styles.buttonText}>{"상관없음"}</Text>
-        </TouchableOpacity>
         <TouchableOpacity
           style={[styles.buttonvote, voted && { backgroundColor: "#d1d1d1" }]}
           onPress={handleSubmitVote}
@@ -182,24 +171,9 @@ const styles = StyleSheet.create({
     color: "#6e6e6e",
     textAlign: "center",
   },
-  bottonYvoted: {
-    fontSize: 16,
-    backgroundColor: "#CFEDE7",
-    textAlign: "center",
-  },
-  bottonNvoted: {
-    fontSize: 16,
-    color: "#333",
-    textAlign: "center",
-  },
-  bottonDvoted: {
-    fontSize: 16,
-    color: "#333",
-    textAlign: "center",
-  },
-  bottonEvoted: {
-    fontSize: 16,
-    color: "#333",
+  votingRatioText: {
+    fontSize: 14,
+    color: "#6e6e6e",
     textAlign: "center",
   },
 });
