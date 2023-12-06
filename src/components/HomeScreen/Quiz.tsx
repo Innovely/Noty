@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 import styled from "styled-components/native";
 
@@ -10,19 +10,20 @@ const Quiz = () => {
     "공직자는 경조사와 관련하여 몇 만원을 초과하는 금품 등을 주거나 받아서는 안 될까요?";
 
   const quizOptions = ["1만원", "3만원", "5만원", "10만원"];
-  const quizAnswer = 2;
+  const correctAnswerIndex = 2;
 
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
   const handleOptionPress = (option: string) => {
     setSelectedOption(option);
   };
 
   const handleSubmitVote = () => {
-    if (selectedOption === quizOptions[quizAnswer]) {
-      console.log("정답");
+    if (selectedOption === quizOptions[correctAnswerIndex]) {
+      setIsCorrect(true);
     } else {
-      console.log("오답");
+      setIsCorrect(false);
     }
   };
 
@@ -44,25 +45,72 @@ const Quiz = () => {
         <QuizText>{quiz}</QuizText>
         <QuizOptions>
           {quizOptions.map((option, index) => (
-            <SelectionButton
-              key={option}
-              selected={isOptionSelected(option)}
-              onPress={() => handleOptionPress(option)}
-            >
-              <ButtonText>{`${String.fromCharCode(
-                65 + index
-              )}. ${option}`}</ButtonText>
-            </SelectionButton>
+            <View key={index}>
+              {isCorrect !== null ? (
+                <SelectionButton
+                  key={option}
+                  selected={isOptionSelected(option)}
+                  onPress={() => handleOptionPress(option)}
+                  disabled
+                  style={{
+                    backgroundColor:
+                      selectedOption === quizOptions[index]
+                        ? isCorrect
+                          ? "#00A184"
+                          : "#F06C6C"
+                        : correctAnswerIndex === index
+                        ? "#9BD8CD"
+                        : "#FCD4D4",
+                  }}
+                >
+                  <ButtonText
+                    style={{
+                      color:
+                        selectedOption === quizOptions[index]
+                          ? isCorrect
+                            ? "#FFFFFF"
+                            : "#FCD4D4"
+                          : correctAnswerIndex === index
+                          ? "#00A184"
+                          : "#F06C6C",
+                    }}
+                  >
+                    {correctAnswerIndex === index ? "O 정답" : "X 오답"}
+                  </ButtonText>
+                </SelectionButton>
+              ) : (
+                <SelectionButton
+                  key={option}
+                  selected={isOptionSelected(option)}
+                  onPress={() => handleOptionPress(option)}
+                >
+                  <ButtonText>{`${String.fromCharCode(
+                    65 + index
+                  )}. ${option}`}</ButtonText>
+                </SelectionButton>
+              )}
+            </View>
           ))}
         </QuizOptions>
-        <VoteButton
-          onPress={handleSubmitVote}
-          disabled={selectedOption === null}
-        >
-          <VoteButtonText disabled={selectedOption === null}>
-            {"선택하기"}
-          </VoteButtonText>
-        </VoteButton>
+        {isCorrect !== null ? (
+          <VoteButton
+            onPress={() => setIsCorrect(null)}
+            disabled={selectedOption === null}
+          >
+            <VoteButtonText disabled={selectedOption === null}>
+              {"다시 선택"}
+            </VoteButtonText>
+          </VoteButton>
+        ) : (
+          <VoteButton
+            onPress={handleSubmitVote}
+            disabled={selectedOption === null}
+          >
+            <VoteButtonText disabled={selectedOption === null}>
+              {"선택하기"}
+            </VoteButtonText>
+          </VoteButton>
+        )}
       </BoxContainer>
     </Container>
   );
