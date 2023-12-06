@@ -4,14 +4,15 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import styled from "styled-components/native";
 
+import { MediumStyledText } from "@styles/globalStyles";
+
 import Search from "@assets/icon/search.svg";
 import CI from "@assets/icon/ci(white).svg";
 import More from "@assets/icon/more_horiz.svg";
-import { MediumStyledText } from "@styles/globalStyles";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("screen");
 
-const CustomHeader = ({ navigation }: { navigation: any; route: any }) => {
+const CustomHeader = ({ navigation }: { navigation: any }) => {
   const insets = useSafeAreaInsets();
 
   return (
@@ -23,13 +24,17 @@ const CustomHeader = ({ navigation }: { navigation: any; route: any }) => {
         sides={{ start: false, end: false, top: true, bottom: false }}
       >
         <ContentsContainer>
-          <TouchableOpacity style={{ alignItems: "center", gap: 10 }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Info")}
+            style={{ alignItems: "center", gap: 10 }}
+          >
             <Search width={40} height={40} fill="#96D9CC" />
             <MediumStyledText style={{ fontSize: 10, color: "#9b9b9b" }}>
-              {"검색"}
+              {"실시간 정보"}
             </MediumStyledText>
           </TouchableOpacity>
           <TouchableOpacity
+            onPress={() => navigation.navigate("Home")}
             style={{
               alignItems: "center",
               alignSelf: "flex-start",
@@ -47,10 +52,10 @@ const CustomHeader = ({ navigation }: { navigation: any; route: any }) => {
             </MediumStyledText>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{ alignItems: "center", gap: 10 }}
             onPress={() => {
               navigation.openDrawer();
             }}
+            style={{ alignItems: "center", gap: 10 }}
           >
             <MoreButton>
               <More width={30} height={30} fill="#96D9CC" />
