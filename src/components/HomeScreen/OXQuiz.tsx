@@ -7,7 +7,7 @@ const OXQuiz = () => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const handleAnswer = (userAnswer: string) => {
-    setIsCorrect(userAnswer === "X");
+    setIsCorrect(userAnswer === "O");
 
     setModalVisible(true);
   };
@@ -23,7 +23,7 @@ const OXQuiz = () => {
       </HeadContainer>
       <BoxContainer>
         <QuizField>{"정책 분야"}</QuizField>
-        <QuizText>{"청년 도약 계좌는 과세 대상이다."}</QuizText>
+        <QuizText>{"청년 도약 계좌는 비과세 대상이다."}</QuizText>
         <QuizImage
           source={require("@assets/icon/1.png")}
           resizeMode="contain"
@@ -56,6 +56,11 @@ const OXQuiz = () => {
         <ModalContainer>
           <ModalContent>
             <ModalText>{isCorrect ? "정답입니다~!" : "오답입니다."}</ModalText>
+            <StyledText style={{ fontSize: 12, textAlign: "center" }}>
+              {
+                "청년들이 자산을 형성할 수 있도록 도와주는 제도이기 때문에 청년 도약 계좌는 이자에 세금을 매기지 않아요!"
+              }
+            </StyledText>
             <ModalButton onPress={() => setModalVisible(!modalVisible)}>
               <ModalButtonText>닫기</ModalButtonText>
             </ModalButton>
@@ -132,33 +137,42 @@ const ModalContainer = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
+
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
 const ModalContent = styled.View`
-  background-color: #fff;
-  border-radius: 30px;
-  padding: 20px;
-  width: 375px;
-  height: 385px;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 100px;
+  gap: 30px;
+
+  width: 80%;
+  height: 300px;
+
+  border-radius: 30px;
+
+  padding: 20px;
+
+  background-color: white;
 `;
 
 const ModalText = styled(BoldStyledText)`
   font-size: 18px;
-  margin-bottom: 10px;
 `;
 
 const ModalButton = styled.TouchableOpacity`
-  background-color: #00a184;
+  justify-content: center;
+  align-items: center;
+
+  width: 140px;
+
   padding: 10px;
   border-radius: 5px;
-  margin-top: 250px;
+  background-color: #00a184;
 `;
 
 const ModalButtonText = styled(BoldStyledText)`
-  color: #fff;
+  color: white;
   font-size: 16px;
 `;
 

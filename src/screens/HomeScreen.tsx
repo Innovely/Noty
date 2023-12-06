@@ -1,11 +1,13 @@
-import Intro from "@components/HomeScreen/Intro";
-import Quiz from "@components/HomeScreen/Quiz";
-import Poll from "@components/HomeScreen/Poll";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import styled from "styled-components/native";
 import { ScrollView } from "react-native";
+
+import Intro from "@components/HomeScreen/Intro";
+import LockUp from "@components/HomeScreen/LockUp";
+import Quiz from "@components/HomeScreen/Quiz";
 import OXQuiz from "@components/HomeScreen/OXQuiz";
+import Poll from "@components/HomeScreen/Poll";
 
 const HomeScreen = () => {
   const insets = useSafeAreaInsets();
@@ -13,11 +15,12 @@ const HomeScreen = () => {
   return (
     <Container insetTop={insets.top} insetBottom={insets.bottom}>
       <ScrollView
-        style={{ marginTop: 20 }}
+        style={{ width: "95%", marginTop: 20 }}
         contentContainerStyle={{ alignItems: "center", gap: 30 }}
         showsVerticalScrollIndicator={false}
       >
         <Intro />
+        <LockUp />
         <Quiz />
         <OXQuiz />
         <Poll />

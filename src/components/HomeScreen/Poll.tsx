@@ -14,8 +14,8 @@ const Poll = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [voted, setVoted] = useState(false);
   const [votes, setVotes] = useState({
-    찬성: 126,
-    반대: 77,
+    불편하다: 126,
+    불편함을_느끼지_못했다: 77,
     상관없음: 32,
   });
 
@@ -41,7 +41,8 @@ const Poll = () => {
   };
 
   const calculateVotingRatio = (option: string) => {
-    const totalVotes = votes.찬성 + votes.반대 + votes.상관없음;
+    const totalVotes =
+      votes.불편하다 + votes.불편함을_느끼지_못했다 + votes.상관없음;
     return totalVotes === 0
       ? 0
       : ((votes[option] / totalVotes) * 100).toFixed(2);
@@ -50,17 +51,19 @@ const Poll = () => {
   return (
     <Container>
       <HeadContainer>
-        <PollMain>{"여론 조사"}</PollMain>
+        <PollMain>{"간단 여론 조사"}</PollMain>
       </HeadContainer>
       <Shadow style={{ width: "100%", borderRadius: 22 }}>
         <BoxContainer>
           <View style={{ gap: 5 }}>
-            <PollDate>{"2023.00.00"}</PollDate>
+            <PollDate>{"2023.12.06"}</PollDate>
             <TextContainer>
-              <PollText>{"국민 평화통일 여론 조사"}</PollText>
+              <PollText>{"한강 공원 이용 여론 조사"}</PollText>
               <ViewMoreText>{"자세히 보기"}</ViewMoreText>
             </TextContainer>
-            <PollSum>{"간단한 설명"}</PollSum>
+            <PollSum>
+              {"한강 공원을 이용하면서 불편한 점이 있었는지를 조사합니다."}
+            </PollSum>
           </View>
           {Object.keys(votes).map((option) => (
             <Button
